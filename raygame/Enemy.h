@@ -8,7 +8,7 @@ public:
 	bool removeMovement(AIMovement());
 	bool removeMovement(const char);
 	AIMovement getMovement(const char*);
-
+	bool GetTargetInSight();
 
 private:
 	AIMovement** m_owner;
