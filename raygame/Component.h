@@ -5,7 +5,7 @@ class Component
 public:
 	Component();
 
-	Component(Actor* owner, const char* name);
+	Component(const char* name);
 	virtual ~Component() {};
 
 	/// <summary>
@@ -34,10 +34,10 @@ public:
 
 	//Functions called by the actor class.
 	virtual void start() {m_started = true;}
-	virtual void update(float deltaTime) {};
-	virtual void end() {};
-	virtual void draw() {};
-	virtual void on_collision(Actor* other) {};
+	virtual void update(float deltaTime);
+	virtual void end();
+	virtual void draw();
+	virtual void onCollision(Actor* other);
 	virtual void onDestroy() {};
 
 private:

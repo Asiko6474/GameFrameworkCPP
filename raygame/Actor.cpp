@@ -2,7 +2,7 @@
 #include "Transform2D.h"
 #include <string.h>
 #include "Collider.h"
-#include <iostream>
+#include "Component.h"
 
 Actor::Actor()
 {
@@ -29,9 +29,9 @@ Component* Actor::getComponent(const char* componentName)
     for (int i = 0; i < m_componentCount; i++)
     {
         //return the component if the name is the same as the current component
-        if (strcmp(m_components[i]->getName(), componentName) == 0)
+        if (strcmp(m_component[i]->getName(), componentName) == 0)
         {
-            return m_components[i];
+            return m_component[i];
         }
     }
     //return nullptr if the component is not in the list
@@ -52,12 +52,12 @@ Component* Actor::addComponent(Component* component)
     //copy the values from the old array to the new array
     for (int i = 0; i < m_componentCount; i++)
     {
-        appendArray[i] = m_components[i];
+        appendArray[i] = m_component[i];
     }
     //set the last value in the new array to be the actor we want to add
     appendArray[m_componentCount] = component;
     //set the old array to hold the values of the new array
-    m_components = appendArray;
+    m_component = appendArray;
     m_componentCount++;
 
     return component;
@@ -76,15 +76,15 @@ Component* Actor::addComponent(Component* component)
     //copy the values from the old array to the new array
     for (int i = 0; i < m_componentCount; i++)
     {
-        if (strcmp(m_components[i]->getName(), name) = 0)
+        if ((m_component[i]->getName(), name) == 0)
         {
-            newArray[j] = m_components[i];
+            newArray[j] = m_component[i];
             j++;
         }
         else
         {
             componentRemoved = true;
-            componentToDelete = m_components[i];
+            componentToDelete = m_component[i];
         }
     }
 
@@ -92,7 +92,7 @@ Component* Actor::addComponent(Component* component)
     {
         //set the old array to the new array
         delete componentToDelete;
-        m_components = newArray;
+        m_component = newArray;
         m_componentCount--;
     }
         
@@ -117,30 +117,30 @@ void Actor::update(float deltaTime)
 {
     for (int i = 0; i < m_componentCount; i++)
     {
-        if (m_components[i]->getStarted())
-            m_components[i].start();
+        if (m_component[i]->getStarted())
+            m_component[i]->start();
 
-        m_components[i]->update(deltaTime);
+        m_component[i]->update(deltaTime);
     }
 }
 
 void Actor::draw()
 {
-    for (int i = 0; i < m_compnentCount; i++)
-        m_components[i]->draw();
+    for (int i = 0; i < m_componentCount; i++)
+        m_component[i]->draw();
 }
 
 void Actor::end()
 {
     m_started = false;
-    for (int i = 0; i < m_compnentCount; i++)
-        m_components[i]->end();
+    for (int i = 0; i < m_componentCount; i++)
+        m_component[i]->end();
 }
 
 void Actor::onDestroy()
 {
     for (int i = 0; i < m_componentCount; i++)
-        m_components[i]->onDestroy();
+        m_component[i]->onDestroy();
 
     //Removes this actor from its parent if it has one
     if (getTransform()->getParent())

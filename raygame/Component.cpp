@@ -7,9 +7,13 @@ Component::Component()
 	m_started = false;
 }
 
-Component::Component(Actor* owner, const char* name)
+Component::Component(const char* name)
 {
-	m_owner = owner;
+}
+
+Component::Component(const char* name)
+{
+	m_started = false;
 	m_name = name;
 }
 
@@ -19,4 +23,20 @@ void Component::assignOwner(Actor* owner)
 		return;
 
 	m_owner = owner;
+}
+
+void Component::update(float deltaTime)
+{
+}
+
+void Component::end()
+{
+}
+
+void Component::draw()
+{
+}
+
+void Component::onCollision(Actor* other)
+{
 }

@@ -119,7 +119,7 @@ private:
     bool m_started;
     Transform2D* m_transform;
     Collider* m_collider;
-    Component** m_components;
+    Component** m_component;
     unsigned int m_componentCount;
 };
 
