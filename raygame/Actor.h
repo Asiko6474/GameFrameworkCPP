@@ -1,6 +1,7 @@
 #pragma once
 class Transform2D;
 class Collider;
+class Component;
 
 class Actor
 {
@@ -37,6 +38,40 @@ public:
     /// </summary>
     /// <returns></returns>
     const char* getName() { return m_name; }
+
+    /// <summary>
+    /// sets the name of this actor
+    /// </summary>
+    /// <param name="name"></param>
+    void setName(const char* name) { m_name = name; }
+
+    /// <summary>
+    /// Gets the first component instance attached to this actor that matches the name.
+    /// </summary>
+    /// <param name="componentName">The name of the component</param>
+    /// <returns>the name of the component instance</returns>
+    Component* getComponent(const char* componentName);
+
+    /// <summary>
+    /// Adds a component to the end of the component array
+    /// </summary>
+    /// <param name="component">The new component to attach to the actor</param>
+    /// <returns>a reference to the component added to the array</returns>
+    Component* addComponent(Component* component);
+
+    /// <summary>
+    /// Removes the first instance found that matches the component reference
+    /// </summary>
+    /// <param name="component">The component to remove from the array</param>
+    /// <returns>whether or not the removal was successful</returns>
+    bool removeComponent(Component* component);
+
+    /// <summary>
+    /// Removes the first instance found that matches the component reference
+    /// </summary>
+    /// <param name="component">The component to remove from the array</param>
+    /// <returns>whether or not the removal was successful</returns>
+    bool removeComponent(const char* name);
 
     /// <summary>
     /// Called during the first update after an actor is added to a scene.
@@ -84,5 +119,7 @@ private:
     bool m_started;
     Transform2D* m_transform;
     Collider* m_collider;
+    Component** m_components;
+    unsigned int m_componentCount;
 };
 
