@@ -7,9 +7,7 @@ Component::Component()
 	m_started = false;
 }
 
-Component::Component(const char* name)
-{
-}
+
 
 Component::Component(const char* name)
 {

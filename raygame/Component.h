@@ -6,7 +6,7 @@ public:
 	Component();
 
 	Component(const char* name);
-	virtual ~Component() {};
+	virtual ~Component();
 
 	/// <summary>
 	/// Gets the name of this component.

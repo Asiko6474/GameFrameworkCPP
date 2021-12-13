@@ -25,11 +25,12 @@ Sprite::~Sprite()
 void Sprite::draw()
 {
 	//get the scale of the global matrix
-	m_width = getOwner()->getTransform()->getGlobalMatrix().x;
-	m_height = getOwner()->getTransform()->getGlobalMatrix().y;
+	m_width = getOwner()->getTransform()->getScale().x;
+	m_height = getOwner()->getTransform()->getScale().y;
 
 	m_texture->width = m_width;
 	m_texture->height = m_height;
+
 	//get the world position of the owner
 	MathLibrary::Vector2 up = { getOwner()->getTransform()->getGlobalMatrix()->m01,
 		getOwner()->getTransform()->getGlobalMatrix()->m11 };

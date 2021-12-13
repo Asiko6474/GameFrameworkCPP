@@ -56,6 +56,12 @@ Component* Actor::addComponent(Component* component)
     }
     //set the last value in the new array to be the actor we want to add
     appendArray[m_componentCount] = component;
+    if (m_componentCount > 1)
+        delete[] m_component;
+    else if (m_componentCount == 1)
+        delete m_component;
+
+
     //set the old array to hold the values of the new array
     m_component = appendArray;
     m_componentCount++;
@@ -63,20 +69,19 @@ Component* Actor::addComponent(Component* component)
     return component;
 }
 
- bool Actor::removeComponent(const char* name)
+ bool Actor::removeComponent(Component* name)
 {
     if (!name)
         return false;
 
     bool componentRemoved = false;
-    Component* componentToDelete;
     //create a new array with a size one greater than our old array
     Component** newArray = new Component * [m_componentCount - 1];
     int j = 0;
     //copy the values from the old array to the new array
     for (int i = 0; i < m_componentCount; i++)
     {
-        if ((m_component[i]->getName(), name) == 0)
+        if (name != m_component[i])
         {
             newArray[j] = m_component[i];
             j++;
@@ -84,18 +89,18 @@ Component* Actor::addComponent(Component* component)
         else
         {
             componentRemoved = true;
-            componentToDelete = m_component[i];
         }
     }
 
     if (componentRemoved)
     {
         //set the old array to the new array
-        delete componentToDelete;
+        delete[] m_component;
         m_component = newArray;
         m_componentCount--;
+        delete name;
     }
-        
+    else 
     delete[] newArray;
 
     //returns whether or not the removal was successful.
